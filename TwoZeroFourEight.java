@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class TwoZeroFourEight {
 	
 	private static int matrix[][];
-	private static char movement;
 	
 	public static void main(String[] args) {
 		
@@ -17,6 +16,7 @@ public class TwoZeroFourEight {
 		System.out.println("Enter the Matrix Size : ");
 		int size = input.nextInt();
 		matrix = new int[size][size];
+		char movement;
 		
 		while(true) {
 			System.out.println("Enter the Input : ");
@@ -38,33 +38,107 @@ public class TwoZeroFourEight {
 				moveLeft();
 				addLeft();
 				moveLeft();
-				checkWinner();
 				printMatrix();
+				if(checkWinner()) {
+					System.out.println("You Won The Game...");
+					System.out.println("    Game Over");	
+					return;
+				}
+				if(checkLose()) {
+					System.out.println("Lose the Game...");
+					return;
+				}
 				break;
 				
 			case 'R' :
 				moveRight();
 				addRight();
 				moveRight();
-				checkWinner();
 				printMatrix();
+				if(checkWinner()) {
+					System.out.println("You Won The Game...");
+					System.out.println("    Game Over");	
+					return;
+				}
+				if(checkLose()) {
+					System.out.println("Lose the Game...");
+					return;
+				}
 				break;
 				
 			case 'T' :
 				moveTop();
-				checkWinner();
 				printMatrix();
+				if(checkWinner()) {
+					System.out.println("You Won The Game...");
+					System.out.println("    Game Over");	
+					return;
+				}
+				if(checkLose()) {
+					System.out.println("Lose the Game...");
+					return;
+				}
 				break;
 				
 			case 'B' : 
 				moveBottom();
-				checkWinner();
 				printMatrix();
+				if(checkWinner()) {
+					System.out.println("You Won The Game...");
+					System.out.println("    Game Over");	
+					return;
+				}
+				if(checkLose()) {
+					System.out.println("Lose the Game...");
+					return;
+				}
 				break;
 			}
 				
 		}
 
+	}
+	
+	public static boolean checkLose() {
+		
+		for(int i=0; i<matrix.length; i++) {
+			for(int j=0; j<matrix[0].length; j++) {
+				if(matrix[i][j] == 0) {
+					return false;
+				}
+			}
+		}
+		
+		for(int ar[] : matrix) {
+			for(int j=1; j<ar.length; j++) {
+				if(ar[j-1] == ar[j]) {
+					return false;
+				}
+			}
+		}
+		
+		for(int i=1; i<matrix.length; i++) {
+			for(int j=0; j<matrix[0].length; j++) {
+				if(matrix[j][-i] == matrix[j][i]) {
+					return false;
+				}
+			}
+		}
+		
+		return true;		
+	}
+	
+	public static boolean checkWinner() {
+		
+		for(int i=0; i<matrix.length; i++) {
+			for(int j=0; j<matrix[0].length; j++) {
+				if(matrix[i][j] == 2048) {
+					return true;
+				}
+			}
+		}		
+		
+		return false;
 	}
 	
 	public static void moveBottom() {
@@ -81,7 +155,7 @@ public class TwoZeroFourEight {
 				matrix[m][i] = 0;
 			}
 			for(int k=1; k<list.size(); k++) {
-				if(list.get(k-1) == list.get(k)) {
+				if(list.get(k-1).equals(list.get(k))) {
 					list.set(k-1, list.get(k) + list.get(k-1));
 					list.remove(k);
 				}
@@ -110,7 +184,7 @@ public class TwoZeroFourEight {
 			}
 			if(list.size() > 1) {
 				for(int a=1; a<list.size(); a++) {
-					if(list.get(a) == list.get(a-1)) {
+					if(list.get(a).equals(list.get(a-1))) {
 						list.set(a-1, list.get(a) + list.get(a-1));
 						list.remove(a);
 					}
@@ -210,19 +284,6 @@ public class TwoZeroFourEight {
 			matrix[r][c] = val;
 		}
 				
-	}
-
-	public static void checkWinner() {
-		
-		for(int i=0; i<matrix.length; i++) {
-			for(int j=0; j<matrix[0].length; j++) {
-				if(matrix[i][j] == 2048) {
-					System.out.println("You Won The Game...");
-					System.out.println("    Game Over");
-				}
-			}
-		}
-		
 	}
 	
 	public static void printMatrix() {
