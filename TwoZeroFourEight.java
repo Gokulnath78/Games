@@ -5,19 +5,13 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 
-//{
-//
-
-//	
-//}
-
 public class TwoZeroFourEight {
 	
 	private static int matrix[][];
 	private static char movement;
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
 		Scanner input = new Scanner(System.in);		
 		
 		System.out.println("Enter the Matrix Size : ");
@@ -44,6 +38,7 @@ public class TwoZeroFourEight {
 				moveLeft();
 				addLeft();
 				moveLeft();
+				checkWinner();
 				printMatrix();
 				break;
 				
@@ -51,16 +46,19 @@ public class TwoZeroFourEight {
 				moveRight();
 				addRight();
 				moveRight();
+				checkWinner();
 				printMatrix();
 				break;
 				
 			case 'T' :
 				moveTop();
+				checkWinner();
 				printMatrix();
 				break;
 				
 			case 'B' : 
 				moveBottom();
+				checkWinner();
 				printMatrix();
 				break;
 			}
@@ -212,6 +210,19 @@ public class TwoZeroFourEight {
 			matrix[r][c] = val;
 		}
 				
+	}
+
+	public static void checkWinner() {
+		
+		for(int i=0; i<matrix.length; i++) {
+			for(int j=0; j<matrix[0].length; j++) {
+				if(matrix[i][j] == 2048) {
+					System.out.println("You Won The Game...");
+					System.out.println("    Game Over");
+				}
+			}
+		}
+		
 	}
 	
 	public static void printMatrix() {
