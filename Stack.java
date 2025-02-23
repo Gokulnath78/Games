@@ -5,7 +5,7 @@ import java.util.*;
 public class Stack {
 	
 	int size = 10;
-	int peek = -1;
+	int point = -1;
 	int stk[] ;
 
 	public Stack() {
@@ -13,8 +13,8 @@ public class Stack {
 	}
 	
 	public void push(int val) {
-		peek += 1;
-		if(peek >= size) {
+		point += 1;
+		if(point >= size) {
 			int temp[] = new int[stk.length];
 			
 			for(int i=0; i<stk.length; i++) {
@@ -27,10 +27,10 @@ public class Stack {
 			for(int i=0; i<temp.length; i++) {
 				stk[i] = temp[i];
 			}
-			stk[peek] = val;			
+			stk[point] = val;			
 		}
 		else {
-			stk[peek] = val;
+			stk[point] = val;
 		}
 		
 	}
@@ -38,12 +38,12 @@ public class Stack {
 	public String toString() {
 		
 		StringBuilder str = new StringBuilder();
-		if(peek == -1) {
+		if(point == -1) {
 			return "[]";
 		}
 		str.append("[");
-		for(int i=0; i<=peek; i++) {
-			if(i == peek) {
+		for(int i=0; i<=point; i++) {
+			if(i == point) {
 				str.append(stk[i]);
 				str.append("]");
 			}
@@ -56,9 +56,9 @@ public class Stack {
 	}
 	
 	public void pop() {
-		if(peek >= 0) {
-			stk[peek] = 0;
-			peek -= 1;
+		if(point >= 0) {
+			stk[point] = 0;
+			point -= 1;
 		}
 		else {
 			System.out.println("No Elements for Pop...");
@@ -66,14 +66,18 @@ public class Stack {
 		
 	}
 	
+	public int peek() {
+		return stk[point];
+	}
+	
 	public int size() {
 		
-		return peek+1;
+		return point+1;
 	}
 	
 	public boolean isEmpty() {
 		
-		return (peek < 0);
+		return (point < 0);
 	}
 
 }
